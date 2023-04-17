@@ -1,12 +1,13 @@
 ﻿@model IEnumerable<Workout>
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+
+
 <div class="album py-5 bg-light">
     <div class="container">
-
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <h2>Keep Track of your Workouts in a Convinent and Easy-to-use format!</h2>
+        }
+        <h4>Look on this page to see if any new workouts look interesting!</h4>
         <div class="row">
             @foreach (var item in Model)
             {
@@ -24,7 +25,7 @@
                                     @if(User.Identity.IsAuthenticated && User.IsInRole("admin")){
 
                                     <a asp-controller="Workout" asp-action="Edit" asp-route-id="@item.Id" type="button" class="btn btn-sm btn-outline-secondary">Edit</a>
-                                    <a asp-controller="Workout" asp-action="Edit" asp-route-id="@item.Id" type="button" class="btn btn-sm btn-outline-secondary">Delete</a>
+                                    <a asp-controller="Workout" asp-action="Delete" asp-route-id="@item.Id" type="button" class="btn btn-sm btn-outline-secondary">Delete</a>
 
                                     }
                                    
@@ -35,11 +36,9 @@
                     </div>
                 </div>
 
-
-
-
             }
 
+           
 
         </div>
     </div>

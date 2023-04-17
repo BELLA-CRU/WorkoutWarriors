@@ -153,6 +153,80 @@ namespace WorkoutWarriors.Data {
                     await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
                 }
 
+                string adminUserEmail1 = "danielli@gmail.com";
+
+                var adminUser1 = await userManager.FindByEmailAsync(adminUserEmail);
+                if (adminUser1 == null)
+                {
+                    var newAdminUser1 = new AppUser()
+                    {
+                        UserName = "daniel_li",
+                        Email = adminUserEmail1,
+                        EmailConfirmed = true,
+                        TwoFactorEnabled = false,
+                        PhoneNumberConfirmed = false,
+                        LockoutEnabled = false,
+                        AccessFailedCount = 0,
+                        Address = new Address()
+                        {
+                            Street = "123 Main St",
+                            City = "Norman",
+                            State = "OK"
+                        }
+                    };
+                    await userManager.CreateAsync(newAdminUser1, "Se2023!");
+                    await userManager.AddToRoleAsync(newAdminUser1, UserRoles.Admin);
+                }
+
+                string adminUserEmail2 = "KarlyMeeks@gmail.com";
+
+                var adminUser2 = await userManager.FindByEmailAsync(adminUserEmail2);
+                if (adminUser2 == null)
+                {
+                    var newAdminUser2 = new AppUser()
+                    {
+                        UserName = "karly_meeks",
+                        Email = adminUserEmail2,
+                        EmailConfirmed = true,
+                        TwoFactorEnabled = false,
+                        PhoneNumberConfirmed = false,
+                        LockoutEnabled = false,
+                        AccessFailedCount = 0,
+                        Address = new Address()
+                        {
+                            Street = "123 Main St",
+                            City = "Norman",
+                            State = "OK"
+                        }
+                    };
+                    await userManager.CreateAsync(newAdminUser2, "Se2023!");
+                    await userManager.AddToRoleAsync(newAdminUser2, UserRoles.Admin);
+                }
+
+                string adminUserEmail3 = "lucywestmicer@gmail.com";
+
+                var adminUser3 = await userManager.FindByEmailAsync(adminUserEmail);
+                if (adminUser3 == null)
+                {
+                    var newAdminUser3 = new AppUser()
+                    {
+                        UserName = "lucy_westmicer",
+                        Email = adminUserEmail3,
+                        EmailConfirmed = true,
+                        TwoFactorEnabled = false,
+                        PhoneNumberConfirmed = false,
+                        LockoutEnabled = false,
+                        AccessFailedCount = 0,
+                        Address = new Address()
+                        {
+                            Street = "123 Main St",
+                            City = "Norman",
+                            State = "OK"
+                        }
+                    };
+                    await userManager.CreateAsync(newAdminUser3, "Se2023!");
+                    await userManager.AddToRoleAsync(newAdminUser3, UserRoles.Admin);
+                }
                 string appUserEmail = "user@etickets.com";
 
                 var appUser = await userManager.FindByEmailAsync(appUserEmail);

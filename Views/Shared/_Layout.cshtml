@@ -26,24 +26,22 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Gym" asp-action="Index">Gyms</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Workout" asp-action="Index">Planned Workouts</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Workout" asp-action="Index">Workouts</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User"
-                               asp-action="Index">Warriors</a>
-                            </li>
+                            
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard"
-                                 asp-action="Index">Dashboard</a>
+                               asp-action="Index">Dashboard</a>
                             </li>
                             <li class="nav-item">
                                 <form asp-area="" asp-controller="Account" asp-action="Logout">
-                                    <button class="btn btn-outline-danger">Logout</button>
+                                    <div class="ml-auto">
+                                        <button class="btn btn-outline-danger">Logout</button>
+                                    </div>
                                 </form>
                             </li>
-
                         }
                         else
                         {
@@ -53,11 +51,10 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
                             </li>
-
                         }
-
                     </ul>
                 </div>
+
             </div>
         </nav>
     </header>

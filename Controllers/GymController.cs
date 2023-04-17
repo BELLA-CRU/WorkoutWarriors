@@ -81,7 +81,7 @@ namespace WorkoutWarriors.Controllers
 
 
         }
-
+       
         public async Task<IActionResult> Edit(int id)
         {
             var gym= await _gymRepository.GetByIdAsync(id);
@@ -128,6 +128,26 @@ namespace WorkoutWarriors.Controllers
 
             return RedirectToAction("Index");
 
+
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+                
+            var gymDetails = await _gymRepository.GetByIdAsync(id);
+            if (gymDetails == null) return View("Error");
+            return View(gymDetails);
+
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteGym(int id)
+        {
+            var GymDetails = await _gymRepository.GetByIdAsync(id);
+            if (GymDetails == null) return View("Error");
+
+            _gymRepository.Delete(GymDetails);
+            return RedirectToAction("Index");
 
         }
     }

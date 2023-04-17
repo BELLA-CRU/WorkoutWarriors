@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Transactions;
 using WorkoutWarriors.Data;
 using WorkoutWarriors.Data.Interfaces;
 using WorkoutWarriors.Data.Repository;
@@ -144,6 +145,26 @@ namespace WorkoutWarriors.Controllers
 
             return RedirectToAction("Index");
 
+
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+
+            var workoutDetails = await _workoutRepository.GetByIdAsync(id);
+            if (workoutDetails == null) return View("Error");
+            return View(workoutDetails);
+
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteWorkout(int id)
+        {
+            var workoutDetails = await _workoutRepository.GetByIdAsync(id);
+            if (workoutDetails == null) return View("Error");
+
+            _workoutRepository.Delete(workoutDetails);
+            return RedirectToAction("Index");
 
         }
     }
