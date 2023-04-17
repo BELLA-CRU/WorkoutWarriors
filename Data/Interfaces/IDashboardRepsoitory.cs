@@ -6,5 +6,10 @@ namespace WorkoutWarriors.Data.Interfaces
     {
         Task<List<Workout>> GetAllUserWorkouts();
         Task<List<Gym>> GetAllUserGyms();
+        Task<AppUser> GetUserById(string id);
+        Task<AppUser> GetByIdNoTracking(string id);
+        bool Update(AppUser user);
+        bool Save();
+
     }
 }

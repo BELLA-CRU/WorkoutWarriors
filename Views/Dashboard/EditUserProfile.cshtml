@@ -1,0 +1,46 @@
+﻿@using WorkoutWarriors.View_Model
+@using WorkoutWarriors.Data.Enum
+
+@model EditUserDashboardViewModel
+
+<div class="col-md-7 col-lg-8">
+        <h4 class="mb-3">Billing address</h4>
+    <form method="post" asp-action="EditUserProfile" enctype="multipart/form-data">
+        <input type="hidden" id="Id" name="Id" asp-for="Id" />
+          <div class="row g-3">
+            <div class="col-sm-6">
+                <label asp-for="Image">Image</label>
+                <input asp-for="Image" class="form-control" placeholder="Image" value="" required>
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+
+            <div class="col-sm-6">
+                <label asp-for="MaxBenchPress">Max Bench Press</label>
+                <input asp-for="MaxBenchPress" class="form-control" placeholder="lbs" value="" required>
+                <label asp-for="MaxDeadLift">Max Deadlift</label>
+                <input asp-for="MaxDeadLift" class="form-control" placeholder="lbs" value="" required />
+            </div>
+
+
+            <div class="mb-3">
+                <label asp-for="City">City</label>
+                <input asp-for="City" class="form-control" placeholder="1234 Main St">
+                <span asp-validation-for="City" class="text-danger"></span>
+              
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="State">State</label>
+                    <select asp-for="State" asp-items="@Html.GetEnumSelectList<StateTypes>()" class="custom-select d-block w-100" id="state" required>
+                        <option value="">Choose...</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Please provide a valid state.
+                    </div>
+                </div>
+
+           
+            <button type="submit" class="btn btn-primary btn-sm btn-block">Make Changes</button>
+       </form>
+  </div>

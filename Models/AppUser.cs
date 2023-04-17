@@ -9,6 +9,13 @@ namespace WorkoutWarriors.Models
         public int? MaxDeadlift { get; set; }  
 
         public int? MaxBenchPress { get; set; }
+
+        public string? Image { get; set; }
+
+        public string? City { get; set; }
+
+        public string? State { get; set; }
+
         [ForeignKey("Address")]
         public int? AddressId { get; set; }
 
