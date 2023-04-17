@@ -1,4 +1,5 @@
 ﻿using WorkoutWarriors.Models;
+using WorkoutWarriors.View_Model;
 
 namespace WorkoutWarriors.Data.Interfaces
 {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WorkoutWarriors.Data;
 using WorkoutWarriors.Data.Interfaces;
@@ -12,9 +13,12 @@ namespace WorkoutWarriors.Controllers
     {
        
         private readonly IGymRepository _gymRepository;
-        public GymController(IGymRepository gymRepository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public GymController(IGymRepository gymRepository, IHttpContextAccessor httpContextAccessor)
         {
             _gymRepository = gymRepository;
+            _httpContextAccessor = httpContextAccessor;
 
 
         }
@@ -35,23 +39,45 @@ namespace WorkoutWarriors.Controllers
 
         public IActionResult Create()
         {
+            var curUserId = _httpContextAccessor.HttpContext.User.GetUserId();
 
-            return View();
+            var createGymViewModel = new CreateGymViewModel {AppUserId = curUserId };
+
+            return View(createGymViewModel);
 
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Gym gym)
+        public async Task<IActionResult> Create(CreateGymViewModel gymVM)
         {
-            if(!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(gym);
+               
+                var gym = new Gym
+                {
 
+                    Title = gymVM.Title,
+                    Description = gymVM.Description,
+                    Image = gymVM.Image,
+                    GymType = gymVM.GymType,
+                    AppUserId = gymVM.AppUserId,
+                    Address = new Address
+                    {
+                        Street = gymVM.Address.Street,
+                        City = gymVM.Address.City,
+                        State = gymVM.Address.State
+
+                    }
+
+
+                };
+                _gymRepository.Add(gym);
+
+                return RedirectToAction("Index");
             }
 
-            _gymRepository.Add(gym);
-
-            return RedirectToAction("Index");
+            
+            return View("Index");
 
 
         }

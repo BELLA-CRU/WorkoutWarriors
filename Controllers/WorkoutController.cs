@@ -12,10 +12,12 @@ namespace WorkoutWarriors.Controllers
     {
 
         private readonly IWorkoutRepository _workoutRepository;
-        public WorkoutController(IWorkoutRepository workoutRepository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public WorkoutController(IWorkoutRepository workoutRepository, IHttpContextAccessor httpContextAccessor)
         {
             _workoutRepository = workoutRepository;
-
+            _httpContextAccessor = httpContextAccessor;
         }
         public async Task<IActionResult> Index()
         {
@@ -34,22 +36,56 @@ namespace WorkoutWarriors.Controllers
 
         public IActionResult Create()
         {
+            var curUserId = _httpContextAccessor.HttpContext.User.GetUserId();
 
-            return View();
+            var createWorkoutViewModel = new CreateWorkoutViewModel { AppUserId = curUserId };
+
+            return View(createWorkoutViewModel);
 
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Workout workout)
+        public async Task<IActionResult> Create(CreateWorkoutViewModel workoutVM)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(workout);
+
+                var workout = new Workout
+                {
+
+                    Title = workoutVM.Title,
+                    Description = workoutVM.Description,
+                    Image = workoutVM.Image,
+                    WorkoutType = workoutVM.WorkoutType,
+                    AppUserId = workoutVM.AppUserId,
+                    StartTime = workoutVM.StartTime,
+                    EntryFee = workoutVM.EntryFee,
+                    Twitter = workoutVM.Twitter,
+                    Facebook = workoutVM.Facebook,
+                    Contact = workoutVM.Contact,
+
+
+                    Address = new Address
+                    {
+                        Street = workoutVM.Address.Street,
+                        City = workoutVM.Address.City,
+                        State = workoutVM.Address.State
+
+                    }
+
+
+                };
+
+                _workoutRepository.Add(workout);
+
+                return RedirectToAction("Index");
+
             }
 
-            _workoutRepository.Add(workout);
+            ModelState.AddModelError("", "Failed to create Workout");
+            return View(workoutVM);
 
-            return RedirectToAction("Index");
+
 
 
         }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Internal;
 using WorkoutWarriors.Data.Interfaces;
 using WorkoutWarriors.Models;
+using WorkoutWarriors.View_Model;
 
 namespace WorkoutWarriors.Data.Repository
 {

@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IGymRepository, GymRepository>();
 builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>();
+builder.Services.AddScoped<IDashboardRepsoitory, DashboardRepository>();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
