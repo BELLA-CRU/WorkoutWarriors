@@ -21,7 +21,7 @@
 
         <div class="row">
             <div class="col-md-8 offset-2">
-                <form asp-action="Register">
+                <form method="post" asp-action="Register">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group">
@@ -33,11 +33,47 @@
                         <label asp-for="Password" class="control-label"></label>
                         <input asp-for="Password" class="form-control" />
                         <span asp-validation-for="Password" class="text-danger"></span>
+                        @{
+                            var password = ViewData.Model.Password as string;
+                            var hasUppercase = false;
+                            var hasLowercase = false;
+                            var hasDigit = false;
+                            var hasSymbol = false;
+                            if (!string.IsNullOrEmpty(password))
+                            {
+                                foreach (var c in password)
+                                {
+                                    if (char.IsUpper(c))
+                                    {
+                                        hasUppercase = true;
+                                    }
+                                    else if (char.IsLower(c))
+                                    {
+                                        hasLowercase = true;
+                                    }
+                                    else if (char.IsDigit(c))
+                                    {
+                                        hasDigit = true;
+                                    }
+                                    else if (char.IsSymbol(c) || char.IsPunctuation(c))
+                                    {
+                                        hasSymbol = true;
+                                    }
+                                }
+                                if (password.Length < 8 || !hasUppercase || !hasLowercase || !hasDigit || !hasSymbol)
+                                {
+                                    <div class="col-md-12 alert alert-danger">
+                                        <span>Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one symbol. </span>
+                                    </div>
+                                    
+                                }
+                            }
+                        }
                     </div>
                     <div class="form-group">
                         <label asp-for="ConfirmPassword" class="control-label"></label>
                         <input asp-for="ConfirmPassword" class="form-control" />
-                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        <span asp-validation-for="ConfirmPassword" class=""></span>
                     </div>
 
                     <div class="form-group">

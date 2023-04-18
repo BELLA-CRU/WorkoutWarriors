@@ -1,10 +1,20 @@
 {
   "dependencies": {
+    "mssql2": {
+      "ignored": "true",
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:DefaultConnection"
+    },
     "mssql1": {
-      "secretStore": "AzureAppSettings",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/workoutwarriorsdbserver/databases/WorkoutWarriors_db",
-      "type": "mssql.azure",
+      "ignored": "true",
+      "type": "mssql",
       "connectionId": "ConnectionStrings:trialString"
+    },
+    "mssql3": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/workoutwarriorsdbserver/databases/WorkoutWarriors_Data_Base",
+      "type": "mssql.azure",
+      "connectionId": "DefaultConnection"
     }
   }
 }

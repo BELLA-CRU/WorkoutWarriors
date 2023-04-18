@@ -96,7 +96,19 @@ namespace WorkoutWarriors.Controllers
             var newUser = new AppUser()
             {
                 Email = registerViewModel.EmailAddress,
-                UserName = registerViewModel.EmailAddress
+                UserName = registerViewModel.EmailAddress,
+                EmailConfirmed = true,
+                TwoFactorEnabled = false,
+                PhoneNumberConfirmed = false,
+                LockoutEnabled = false,
+                AccessFailedCount = 0,
+
+                Address = new Address()
+                {
+                    Street = "123 Main St",
+                    City = "Charlotte",
+                    State = "NC"
+                }
 
             };
 

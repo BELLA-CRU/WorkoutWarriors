@@ -155,7 +155,7 @@ namespace WorkoutWarriors.Data {
 
                 string adminUserEmail1 = "danielli@gmail.com";
 
-                var adminUser1 = await userManager.FindByEmailAsync(adminUserEmail);
+                var adminUser1 = await userManager.FindByEmailAsync(adminUserEmail1);
                 if (adminUser1 == null)
                 {
                     var newAdminUser1 = new AppUser()
@@ -205,7 +205,7 @@ namespace WorkoutWarriors.Data {
 
                 string adminUserEmail3 = "lucywestmicer@gmail.com";
 
-                var adminUser3 = await userManager.FindByEmailAsync(adminUserEmail);
+                var adminUser3 = await userManager.FindByEmailAsync(adminUserEmail3);
                 if (adminUser3 == null)
                 {
                     var newAdminUser3 = new AppUser()
