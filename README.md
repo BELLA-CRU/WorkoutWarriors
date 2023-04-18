@@ -11,4 +11,4 @@ I'm not sure which tests you want to do, but here is a quick rundown:
 3) This is Dotnet ASP.Net 6.0, it is VERY important that you only follow any tutorials fit for this version. (I had to learn this the incredibly hard way) 
 
 
-Website Link: https://www.youtube.com/playlist?list=PL82C6-O4XrHeyeJcI5xrywgpfbrqdkQd4
+Website Link: https://workoutwarriors.azurewebsites.net/
