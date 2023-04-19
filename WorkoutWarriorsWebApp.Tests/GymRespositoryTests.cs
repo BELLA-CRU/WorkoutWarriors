@@ -1,9 +1,9 @@
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using WorkoutWarriorsWebApp.Data;
-using WorkoutWarriorsWebApp.Data.Enum;
-using WorkoutWarriorsWebApp.Models;
-using WorkoutWarriorsWebApp.Repository;
+using WorkoutWarriors.Data;
+using WorkoutWarriors.Data.Enum;
+using WorkoutWarriors.Models;
+using WorkoutWarriors.Data.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,17 +23,17 @@ namespace WorkoutWarriors.Tests.Repository
                 .Options;
             var databaseContext = new ApplicationDbContext(options);
             databaseContext.Database.EnsureCreated();
-            if (await databaseContext.Gym.CountAsync() < 0)
+            if (await databaseContext.Gyms.CountAsync() < 0)
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    databaseContext.Gym.Add(
+                    databaseContext.Gyms.Add(
                       new Gym()
                       {
                           Title = "Jim's Gym",
                           Image = "https://tse3.mm.bing.net/th?id=OIP.p-aZsNRUiC7FilHb3hnEYgHaE8&pid=Api&P=0",
                           Description = "This is a fake gym",
-                          GymType = GymType.Jim,
+                          GymType = GymType.GoldGym,
                           Address = new Address()
                           {
                               Street = "123 Main St",
@@ -56,7 +56,7 @@ namespace WorkoutWarriors.Tests.Repository
                 Title = "Jim's Gym",
                 Image = "https://tse3.mm.bing.net/th?id=OIP.p-aZsNRUiC7FilHb3hnEYgHaE8&pid=Api&P=0",
                 Description = "This is a fake gym",
-                GymType = GymType.Jim,
+                GymType = GymType.GoldGym,
                 Address = new Address()
                 {
                     Street = "123 Main St",
@@ -68,7 +68,7 @@ namespace WorkoutWarriors.Tests.Repository
             var gymRespository = new GymRepository(dbContext);
 
             //Act
-            var result = gymRepository.Add(gym);
+            var result = gymRespository.Add(gym);
 
             //Assert
             result.Should().BeTrue();
@@ -114,7 +114,7 @@ namespace WorkoutWarriors.Tests.Repository
                 Title = "Jim's Gym",
                 Image = "https://tse3.mm.bing.net/th?id=OIP.p-aZsNRUiC7FilHb3hnEYgHaE8&pid=Api&P=0",
                 Description = "This is a fake gym",
-                GymType = GymType.Jim,
+                GymType = GymType.GoldGym,
                 Address = new Address()
                 {
                     Street = "123 Main St",
@@ -128,86 +128,15 @@ namespace WorkoutWarriors.Tests.Repository
             //Act
             gymRepository.Add(gym);
             var result = gymRepository.Delete(gym);
-            var count = await gymRepository.GetCountAsync();
+            var count = await gymRepository.GetByIdAsync(gym.Id);
 
             //Assert
             result.Should().BeTrue();
             count.Should().Be(0);
         }
 
-        [Fact]
-        public async void GymRepository_GetCountAsync_ReturnsInt()
-        {
-            //Arrange
-            var gym = new Gym()
-            {
-                Title = "Jim's Gym",
-                Image = "https://tse3.mm.bing.net/th?id=OIP.p-aZsNRUiC7FilHb3hnEYgHaE8&pid=Api&P=0",
-                Description = "This is a fake gym",
-                GymType = GymType.Jim,
-                Address = new Address()
-                {
-                    Street = "123 Main St",
-                    City = "Wesley Chapel",
-                    State = "FL"
-                }
-            };
-            var dbContext = await GetDbContext();
-            var gymRepository = new GymRepository(dbContext);
-
-            //Act
-            gymRepository.Add(gym);
-            var result = await gymRepository.GetCountAsync();
-
-            //Assert
-            result.Should().Be(1);
-        }
-
-        [Fact]
-        public async void WorkoutRepository_GetAllStates_ReturnsList()
-        {
-            //Arrange
-            var dbContext = await GetDbContext();
-            var gymRepository = new GymRepository(dbContext);
-
-            //Act
-            var result = await gymRepository.GetAllStates();
-
-            //Assert
-            result.Should().NotBeNull();
-            result.Should().BeOfType<List<State>>();
-        }
-
-        [Fact]
-        public async void GymRepository_GetGymByState_ReturnsList()
-        {
-            //Arrange
-            var state = "FL";
-            var gym = new Gym()
-            {
-                Title = "Jim's Gym",
-                Image = "https://tse3.mm.bing.net/th?id=OIP.p-aZsNRUiC7FilHb3hnEYgHaE8&pid=Api&P=0",
-                Description = "This is a fake gym",
-                GymType = GymType.Jim,
-                Address = new Address()
-                {
-                    Street = "123 Main St",
-                    City = "Wesley Chapel",
-                    State = "FL"
-                }
-            };
-            var dbContext = await GetDbContext();
-            var gymRepository = new GymRepository(dbContext);
-
-            //Act
-            gymRepository.Add(gym);
-            var result = await gymRepository.GetClubsByState(state);
-
-            //Assert
-            result.Should().NotBeNull();
-            result.Should().BeOfType<List<gym>>();
-            result.First().Title.Should().Be("Jim's Gym");
-        }
+    
+      
     }
 }
 

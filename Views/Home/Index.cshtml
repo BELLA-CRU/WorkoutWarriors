@@ -1,4 +1,6 @@
-﻿@{
+﻿@using WorkoutWarriors.View_Model;
+@model HomeViewModel;
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -30,4 +32,58 @@
     </div>
 </div>
 
-
+<section>
+    <div class="container">
+        @if (Model.Gyms == null)
+        {
+            <h1 class="fw-light">
+                There are no gyms in your area! <a asp-area="" asp-controller="Account"
+                asp-action="Login">Login</a> and create one!
+            </h1>
+        }
+        else
+        {
+            <div class="row justify-content-between mb-5">
+                <div class="col-auto">
+                    <h3 class="display-4 font-weight-normal">Running clubs near @Model.City, @Model.State</h3>
+                </div>
+            
+            </div>
+            <ul class="row feature-list feature-list-sm">
+                @foreach (var item in Model.Gyms)
+                {
+                    <li class="col-12 col-md-6 col-lg-4">
+                        <div class="card">
+                            <a href="#">
+                                <img class="card-img-top" src="@item.Image" alt="Card image cap">
+                            </a>
+                            <div class="card-body">
+                                <a href="#">
+                                    <h4 class="card-title">@item.Title</h4>
+                                    <p class="card-text text-body">@item.Description</p>
+                                </a>
+                            </div>
+                            <div class="card-footer card-footer-borderless d-flex justify-content-between">
+                                <div class="text-small">
+                                </div>
+                                <div class="dropup">
+                                    <a type="btn btn-success" asp-controller="Gym" asp-action="Detail" asp-route-id="@item.Id"
+                                       class="btn btn-sm btn-outline-secondary">View</a>
+                                    <div class="dropdown-menu dropdown-menu-sm" aria-labelledby="SidekickButton">
+                                        <a class="dropdown-item" href="#">Save</a>
+                                        <a class="dropdown-item" href="#">Share</a>
+                                        <a class="dropdown-item" href="#">Comment</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Report</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
+        <!--end of row-->
+    </div>
+    <!--end of container-->
+</section>
