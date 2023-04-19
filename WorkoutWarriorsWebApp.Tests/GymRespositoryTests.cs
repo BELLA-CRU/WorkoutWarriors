@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using WorkoutWarriors.Data;
 using WorkoutWarriors.Data.Enum;
