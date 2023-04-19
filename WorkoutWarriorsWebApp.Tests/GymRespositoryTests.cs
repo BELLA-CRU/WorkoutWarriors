@@ -1,9 +1,9 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using RunGroopWebApp.Data;
-using RunGroopWebApp.Data.Enum;
-using RunGroopWebApp.Models;
-using RunGroopWebApp.Repository;
+using WorkoutWarriorsWebApp.Data;
+using WorkoutWarriorsWebApp.Data.Enum;
+using WorkoutWarriorsWebApp.Models;
+using WorkoutWarriorsWebApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
